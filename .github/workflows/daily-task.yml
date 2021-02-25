@@ -54,6 +54,7 @@ jobs:
       with:
         path: ${{ steps.npm-cache.outputs.dir }}
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
 
     - name: restore npm dependencies
       uses: actions/cache@v2
@@ -63,6 +64,7 @@ jobs:
           node_modules
           */*/node_modules
         key: ${{ runner.os }}-depends-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-depends-${{ hashFiles('**/package.json') }}
 
     - name: restore task cache
       uses: actions/cache@v2
@@ -71,6 +73,7 @@ jobs:
         path: |
           /home/runner/.AutoSignMachine
         key: ${{ runner.os }}-task-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-task-${{ hashFiles('**/package.json') }}
 
     - name: Install dependencies
       if: steps.use-npm-cache.outputs.cache-hit != 'true' || steps.use-npm-depends.outputs.cache-hit != 'true'
